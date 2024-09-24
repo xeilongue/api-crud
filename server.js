@@ -6,13 +6,13 @@ app.use(express.json());
 const users = [];   
 
 app.post('/users', (req,res) => {
-    console.log(res);
+    users.push(req.body);
 
     res.send('Ok post.')
 })
 
 app.get('/users', (req,res) => {
-    res.send('Ok, deu bom');
+    res.json(users);
 });
 
 app.listen(8081);
