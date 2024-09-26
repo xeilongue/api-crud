@@ -26,6 +26,15 @@ npm i
 # Prisma
 ```sh
 npm install prisma --save-dev
-npx prisma init # Após esse, preencha o .env de acordo com a documentação
+npx prisma init
+```
+
+Preencha o .env de acordo com a [documentação](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/mongodb-node-mongodb)
+```
+DATABASE_URL="mongodb+srv://test:test@cluster0.ns1yp.mongodb.net/myFirstDatabase
+```
+
+```sh
 npx prisma db push
+npm install @prisma/client
 ```
