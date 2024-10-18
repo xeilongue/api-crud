@@ -89,13 +89,13 @@ app.get('/courses', async (req,res) => {
     let courses = [];
 
     if(req.query){
-        courses = await prisma.user.findMany({
+        courses = await prisma.course.findMany({
             where: {
                 name: req.query.name
             }
         }); // Prisma
     } else {
-        courses = await prisma.users.findMany();
+        courses = await prisma.course.findMany();
     }
     
     res.status(200).json(users);
