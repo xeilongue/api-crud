@@ -8,6 +8,8 @@ app.use(express.json());
 
 //const users = []; // Comentar se for usar Prisma
 
+// **USUÁRIOS**
+
 // Criar usuário
 app.post('/users', async (req,res) => {
     //users.push(req.body);
@@ -67,5 +69,62 @@ app.delete('/users/:id', async (req,res) => {
 
     res.status(200).json({message: 'Usuário deletado com Sucesso!'});
 })
+
+// **CURSOS**
+
+// Criar curso
+app.post('/courses', async (req,res) => {
+    await prisma.course.create({ // Prisma
+        data: {
+            name: req.body.name,
+            hours: req.body.hours
+        }
+    });
+
+    res.status(201).json(req.body);
+})
+
+// Consultar curso
+app.get('/courses', async (req,res) => {
+    let courses = [];
+
+    if(req.query){
+        courses = await prisma.user.findMany({
+            where: {
+                name: req.query.name
+            }
+        }); // Prisma
+    } else {
+        courses = await prisma.users.findMany();
+    }
+    
+    res.status(200).json(users);
+});
+
+// Editar curso
+app.put('/courses/:id', async (req,res) => {
+    //users.push(req.body);
+    await prisma.course.update({ // Prisma
+        data: {
+            name: req.body.name,
+            hours: req.body.hours
+        }
+    });
+
+    res.status(201).json(req.body);
+})
+
+// Deletar usuário
+app.delete('/courses/:id', async (req,res) => {
+    //users.push(req.body);
+    await prisma.course.delete({ // Prisma
+        where: {
+            id: req.params.id
+        }
+    });
+
+    res.status(200).json({message: 'Usuário deletado com Sucesso!'});
+})
+
 
 app.listen(8081);
