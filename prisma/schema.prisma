@@ -14,8 +14,24 @@ datasource db {
 }
 
 model User {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String @unique
-  name  String
-  age   Int
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  email       String        @unique
+  name        String
+  age         Int
+  MatriCourse MatriCourse[]
+}
+
+model MatriCourse {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  user     User   @relation(fields: [userId], references: [id])
+  courses  Course @relation(fields: [courseId], references: [id])
+  userId   String @db.ObjectId
+  courseId String @db.ObjectId
+}
+
+model Course {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  hours       Int
+  MatriCourse MatriCourse[]
 }
