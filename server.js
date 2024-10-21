@@ -4,6 +4,7 @@ import { PrismaClient } from "@prisma/client"; // Prisma
 
 const app = express();
 const prisma = new PrismaClient(); // Prisma
+const PORT = 8081
 
 app.use(express.json());
 app.use(cors());
@@ -40,7 +41,6 @@ app.get('/users', async (req,res) => {
         users = await prisma.user.findMany();
     }
     
-    console.log(res)
     res.status(200).json(users);
 });
 
@@ -188,4 +188,5 @@ app.delete('/matriCourse/:id', async (req,res) => {
     res.status(200).json({message: 'Matrícula deletada com Sucesso!'});
 })
 
+console.log(`Running on port ${PORT}`)
 app.listen(8081);
