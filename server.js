@@ -119,7 +119,7 @@ app.put('/courses/:id', async (req,res) => {
     res.status(201).json(req.body);
 })
 
-// Deletar usuário
+// Deletar courso
 app.delete('/courses/:id', async (req,res) => {
     //users.push(req.body);
     await prisma.course.delete({ // Prisma
@@ -128,7 +128,7 @@ app.delete('/courses/:id', async (req,res) => {
         }
     });
 
-    res.status(200).json({message: 'Usuário deletado com Sucesso!'});
+    res.status(200).json({message: 'Curso deletado com Sucesso!'});
 })
 
 
@@ -176,7 +176,7 @@ app.put('/matriCourse/:id', async (req,res) => {
     res.status(201).json(req.body);
 })
 
-// Deletar usuário
+// Deletar matrícula
 app.delete('/matriCourse/:id', async (req,res) => {
     //users.push(req.body);
     await prisma.matriCourse.delete({ // Prisma
@@ -185,7 +185,7 @@ app.delete('/matriCourse/:id', async (req,res) => {
         }
     });
 
-    res.status(200).json({message: 'Usuário deletado com Sucesso!'});
+    res.status(200).json({message: 'Matrícula deletada com Sucesso!'});
 })
 
 app.listen(8081);
