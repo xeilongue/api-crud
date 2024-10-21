@@ -11,6 +11,13 @@ app.use(cors());
 
 //const users = []; // Comentar se for usar Prisma
 
+app.use('/', (req,res) => {
+    res.json({
+        status: "API working fine",
+        code: 200
+    })
+})
+
 // **USUÁRIOS**
 
 // Criar usuário
@@ -188,5 +195,4 @@ app.delete('/matriCourse/:id', async (req,res) => {
     res.status(200).json({message: 'Matrícula deletada com Sucesso!'});
 })
 
-console.log(`Running on port ${PORT}`)
-app.listen(8081);
+app.listen(() => app.listen(PORT, () => console.log(`Running on port ${PORT}`)));
