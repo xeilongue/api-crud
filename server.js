@@ -10,13 +10,13 @@ app.use(express.json());
 app.use(cors());
 
 //const users = []; // Comentar se for usar Prisma
-
+/*
 app.use('/', (req,res) => {
     res.json({
         status: "API working fine",
         code: 200
     })
-})
+})*/
 
 // **USUÁRIOS**
 
