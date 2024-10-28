@@ -40,19 +40,8 @@ npm i
 
 ## Body Params (POST / PUT)
 * Exemplo:
-```json
-{
-  "nome": "Rodolfo",
-  "idade": 31,
-  "email": "rodolfo@email.com"
-}
-```
 
-# Prisma
-```sh
-npm install prisma --save-dev
-npx prisma init
-```
+
 
 Preencha o .env de acordo com a [documentação](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/mongodb-node-mongodb)
 ```.env
@@ -64,3 +53,72 @@ npx prisma db push
 npm install @prisma/client
 npx prisma studio
 ```
+
+# Uso da API
+## Usuários
+### Criar usuário `/users`
+- O usuário deve ser criado com as informações no seguinte formato:
+```json
+{
+  "email": "rodolfo@email.com",
+  "name": "Rodolfo Santos",
+  "age": 33
+}
+```
+
+### Consultar usuário `/users`
+- Pode ser usado Query Params (procurando pelo email):
+```
+/users?email=rodolfo@email.com
+```
+
+### Editar usuário `/users/:id`
+- Deve usar as informações no mesmo formato da criação do usuário, mas com a rota apontando para o id do usuário
+
+### Deletar usuário `/users/:id`
+- Deve ter a rota apontando para o id do usuário
+
+## Cursos
+### Criar curso `/courses`
+- O curso deve ser criado com as informações seguindo o seguinte formato:
+```json
+{
+  "name": "Git e GitHub",
+  "duration": "3",
+  "description": "Curso de Git e GitHub"
+}
+```
+
+### Consultar curso `/courses`
+- Pode ser usado Query Params (procurando pelo id):
+```
+/courses?id=...
+```
+
+### Editar cursos `/courses/:id`
+- Deve usar as informações no mesmo formato da criação do cursos, mas com a rota apontando para o id do curso
+
+### Deletar curso `/courses/:id`
+- Deve ter a rota apontando para o id do curso
+
+## Matrículas
+### Criar curso `/matriCourse`
+- A matrícula deve ser criada com as informações seguindo o seguinte formato:
+```json
+{
+  "userId": "id-do-usuario",
+  "courseId": "id-do-curso"
+}
+```
+
+### Consultar curso `/matriCourse`
+- Pode ser usado Query Params (procurando pelo id):
+```
+/matriCourse?id=...
+```
+
+### Editar cursos `/matriCourse/:id`
+- Deve usar as informações no mesmo formato da criação da matrícula, mas com a rota apontando para o id da matrícula
+
+### Deletar curso `/matriCourse/:id`
+- Deve ter a rota apontando para o id da matrícula

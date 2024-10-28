@@ -10,13 +10,13 @@ app.use(express.json());
 app.use(cors());
 
 //const users = []; // Comentar se for usar Prisma
-
+/*
 app.use('/', (req,res) => {
     res.json({
         status: "API working fine",
         code: 200
     })
-})
+})*/
 
 // **USUÁRIOS**
 
@@ -27,7 +27,7 @@ app.post('/users', async (req,res) => {
         data: {
             email: req.body.email,
             name: req.body.name,
-            age: req.body.age
+            password: req.body.password
         }
     });
 
@@ -61,7 +61,7 @@ app.put('/users/:id', async (req,res) => {
         data: {
             email: req.body.email,
             name: req.body.name,
-            age: req.body.age
+            password: req.body.password
         }
     });
 
