@@ -21,6 +21,7 @@ app.use('/', (req,res) => {
 // **USUÁRIOS**
 
 // Criar usuário
+
 app.post('/users', async (req,res) => {
     //users.push(req.body);
     await prisma.user.create({ // Prisma
@@ -33,6 +34,36 @@ app.post('/users', async (req,res) => {
 
     res.status(201).json(req.body);
 })
+
+app.post('/login', async (req, res) => {
+    const { email, senha } = req.body;
+
+    try {
+        // Encontre o usuário pelo e-mail
+        const user = await prisma.user.findUnique({
+            where: { email: email }
+        });
+
+        // Se o usuário não for encontrado
+        if (!user) {
+            return res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+
+        // Verifique se a senha está correta (comparação direta)
+        if (user.senha !== senha) {
+            return res.status(401).json({ message: 'Senha incorreta' });
+        }
+
+        // Gere um token JWT (ajuste as informações conforme necessário)
+        const token = jwt.sign({ id: user.id, email: user.email }, SECRET, { expiresIn: '1h' });
+
+        // Retorne o token de autenticação
+        res.status(200).json({ message: 'Login bem-sucedido', token: token });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro no servidor', error: error.message });
+    }
+    res.status(201).json(req.body);
+});
 
 // Consultar usuário
 app.get('/users', async (req,res) => {
