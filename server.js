@@ -1,13 +1,17 @@
 import cors from "cors";
 import express from "express";
 import { PrismaClient } from "@prisma/client"; // Prisma
+import jwt from "jsonwebtoken";
 
 const app = express();
+const bodyParser = require('body-parser');
 const prisma = new PrismaClient(); // Prisma
 const PORT = 8081
 
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
+const SECRET = "seu_segredo_aqui";
 
 //const users = []; // Comentar se for usar Prisma
 /*
@@ -17,6 +21,31 @@ app.use('/', (req,res) => {
         code: 200
     })
 })*/
+
+app.post('/login', async (req, res) => {
+
+    const { email, password } = req.body;
+
+    try {
+        const user = await prisma.User.findUnique({
+            where: { email: email }
+        });
+
+        if (!user) {
+            console.log(`Usuário não encontrado: ${email}`);
+            return res.status(406).json({ message: 'Usuário não encontrado' });
+        }
+
+        if (user.password !== password) {
+            return res.status(401).json({ message: 'Senha incorreta' });
+        }
+
+        const token = jwt.sign({ id: user.id, email: user.email }, SECRET, { expiresIn: '1h' });
+        res.status(200).json({ message: 'Login bem-sucedido', token: token });
+    } catch (error) {
+        res.status(500).json({ message: 'Erro no servidor', error: error.message });
+    }
+});
 
 // **USUÁRIOS**
 
