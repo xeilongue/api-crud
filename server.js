@@ -34,6 +34,26 @@ app.post('/users', async (req,res) => {
     res.status(201).json(req.body);
 })
 
+// Consultar apenas um usuário pelo ID
+app.get('/users/:id', async (req, res) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.params.id },
+        });
+
+        if (user) {
+            // Criando as iniciais caso não tenha imagem
+            const initials = user.name.split(' ').map(word => word[0]).join(' ');
+            res.status(200).json({ ...user, initials });
+        } else {
+            res.status(404).json({ message: 'Usuário não encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Erro no servidor', error: error.message });
+    }
+});
+
+
 // Consultar usuário
 app.get('/users', async (req,res) => {
     let users = [];
@@ -194,5 +214,7 @@ app.delete('/matriCourse/:id', async (req,res) => {
 
     res.status(200).json({message: 'Matrícula deletada com Sucesso!'});
 })
+
+
 
 app.listen(() => app.listen(PORT, () => console.log(`Running on port ${PORT}`)));
